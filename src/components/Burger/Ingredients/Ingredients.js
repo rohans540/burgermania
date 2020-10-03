@@ -1,5 +1,6 @@
 import React from 'react';
-import classes from './ingredients.css';
+import classes from './Ingredients.css';
+import PropTypes from 'prop-types';
 
 const ingredients = ( props ) => {
     let ingredient = null;
@@ -32,5 +33,9 @@ const ingredients = ( props ) => {
     };
     return ingredient;
 };
+
+ingredients.propTypes = {
+    type: PropTypes.string.isRequired
+}
 
 export default ingredients;
