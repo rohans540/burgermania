@@ -83,30 +83,40 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // alert('Your burger is on the way!');
-        this.setState({loading: true})
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Rohan sharma',
-                address: {
-                    street:'Govindpuri',
-                    pincode: '474011',
-                    country: 'India',
-                },
-                email: 'rohans@mailinator.com'
-            },
+        // this.setState({loading: true})
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Rohan sharma',
+        //         address: {
+        //             street:'Govindpuri',
+        //             pincode: '474011',
+        //             country: 'India',
+        //         },
+        //         email: 'rohans@mailinator.com'
+        //     },
             
+        // }
+        // axios.post('orders.json', order)
+        //     .then(resp => {
+        //         this.setState({loading: false});
+        //     })
+        //     .catch(err => this.setState({loading: false}));
+        // this.setState({purchasing: false});
+        const queryParams = [];
+        for(let i in this.state.ingredients) {
+            queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(this.state.ingredients[i])}`);
         }
-        axios.post('orders.json', order)
-            .then(resp => {
-                this.setState({loading: false});
-            })
-            .catch(err => this.setState({loading: false}));
-        this.setState({purchasing: false});
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render() {
+        console.log(this.props.history);
         const disabledInfo = {
             ...this.state.ingredients
         };
